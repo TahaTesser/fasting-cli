@@ -1,7 +1,16 @@
 name: Build and Release CLI
 
 on:
-  workflow_dispatch: # Allows manual triggering
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Git tag to create the release from (e.g., v1.0.0)'
+        required: true
+        default: 'v0.0.0-draft'
+      release_name:
+        description: 'Name of the release (defaults to tag_name)'
+        required: false
+        default: 'Draft Release'
   push:
     tags:
       - 'v*.*.*' # Trigger on new tags for formal releases
@@ -62,6 +71,8 @@ jobs:
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
       with:
+        tag_name: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag_name || github.ref }}
+        name: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.release_name || github.ref }}
         files: artifacts/**/*
         generate_release_notes: true
         draft: true
