@@ -1,6 +1,8 @@
 # Fasting CLI
 
-A simple CLI application to help you track your intermittent fasting schedule.
+![Fasting CLI Preview](preview.png)
+
+A command-line interface (CLI) application for tracking intermittent fasting schedules.
 
 ## Features
 
@@ -63,4 +65,3 @@ To run the application:
 ### Keyboard Shortcuts (when viewing progress)
 
 - Press `q` or `Ctrl+c` to quit the application.
-
